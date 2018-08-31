@@ -1,0 +1,19 @@
+{
+  "name": "yelp-camp",
+  "version": "1.0.0",
+  "description": "A simple camping app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CodeCramp/YelpCamp.git"
+  },
+  "author": "Mohit Kumar",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/CodeCramp/YelpCamp/issues"
+  },
+  "homepage": "https://github.com/CodeCramp/YelpCamp#readme"
+}
