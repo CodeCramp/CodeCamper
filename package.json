@@ -16,12 +16,11 @@
     "url": "https://github.com/CodeCramp/YelpCamp/issues"
   },
   "homepage": "https://github.com/CodeCramp/YelpCamp#readme",
-  
-  
   "dependencies": {
     "body-parser": "^1.18.3",
     "ejs": "^2.6.1",
     "express": "^4.16.3",
+    "mongoose": "^5.2.12",
     "request": "^2.88.0"
   }
 }
