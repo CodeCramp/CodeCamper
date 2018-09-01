@@ -4,4 +4,12 @@
 
 <p><%= campground.description %></p>
 
+<% campground.forEach(function(comment){ %>
+    <p>
+         <stong><%= comment.author %></stong> - <%= comment.text %>
+    </p>
+<% }) %>
+
+<!--<%  %>-->
+
 <% include partials/footer %>

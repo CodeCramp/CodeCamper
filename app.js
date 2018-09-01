@@ -1,13 +1,16 @@
-var express = require("express");
-var app = express();
-var bodyParser = require("body-parser");
-var mongoose = require("mongoose");
-var Campground = require("./models/campground");
+var express         = require("express"),
+    app             = express(),
+    bodyParser      = require("body-parser"),
+    mongoose        = require("mongoose"),
+    seedDB          = require("./seeds"),
+    Campground      = require("./models/campground"),
+    Comment         = require("./models/comment");
+
 
 mongoose.connect("mongodb://localhost/yelp_camp");
 app.use(bodyParser.urlencoded({extended: true}));
-// so that we don't have to write the extension .ejs when providing ejs file-names.
 app.set("view engine", "ejs");
+seedDB();
 
 app.get("/", function(req, res){
     res.render("landing");
@@ -46,8 +49,8 @@ app.get("/campgrounds/new", function(req, res){
 
 // SHOW - Show more info about a specific campground
 app.get("/campgrounds/:id", function(req, res){
-    // Find the campground with the provided ID
-    Campground.findById(req.params.id, function(err, foundCampground){
+    // Find the campground with the provided ID and populate them with their comments
+    Campground.findById(req.params.id).populate("comments").exec(function(err, foundCampground){
         if(err) {
             console.log(err);
         } else {
