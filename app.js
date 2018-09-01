@@ -4,8 +4,8 @@ var express         = require("express"),
     mongoose        = require("mongoose"),
     seedDB          = require("./seeds"),
     Campground      = require("./models/campground"),
-    Comment         = require("./models/comment");
-
+    Comment         = require("./models/comment"),
+    User            = require("./models/user");
 
 mongoose.connect("mongodb://localhost/yelp_camp");
 app.use(bodyParser.urlencoded({extended: true}));
