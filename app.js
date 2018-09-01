@@ -24,6 +24,7 @@ app.use(require("express-session")({
 app.use(passport.initialize());
 app.use(passport.session());
 passport.use(new LocalStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 app.get("/", function(req, res){
@@ -139,6 +140,20 @@ app.post("/register", function(req, res){
            });
         });
 });
+
+// Show login form
+app.get("/login", function(req, res){
+    res.render("login");
+});
+// Handle login logic
+app.post("/login", passport.authenticate("local",
+    {
+        successRedirect: "/campgrounds",
+        failureRedirect: "/login"
+    }), function(req, res){
+        // Doing nothing for now
+    }
+);
 
 
 app.listen(process.env.PORT, process.env.IP, function(){
