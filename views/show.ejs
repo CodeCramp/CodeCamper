@@ -4,9 +4,9 @@
 
 <p><%= campground.description %></p>
 
-<% campground.forEach(function(comment){ %>
+<% campground.comments.forEach(function(comment){ %>
     <p>
-         <stong><%= comment.author %></stong> - <%= comment.text %>
+         <strong><%= comment.author %></strong> - <%= comment.text %>
     </p>
 <% }) %>
 
