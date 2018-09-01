@@ -9,11 +9,22 @@ var express         = require("express"),
     Comment         = require("./models/comment"),
     User            = require("./models/user");
     
-mongoose.connect("mongodb://localhost/yelp_camp_v4");
+mongoose.connect("mongodb://localhost/yelp_camp");
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public"));
 seedDB();
+
+// PASSWORD CONFIGURATION
+app.use(require("express-session")({
+    secret: "Code Of Life",
+    resave: false,
+    saveUninitialized: false
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new LocalStrategy(User.authenticate()));
+passport.deserializeUser(User.deserializeUser());
 
 app.get("/", function(req, res){
     res.render("landing");
@@ -106,6 +117,29 @@ app.post("/campgrounds/:id/comments", function(req, res){
    //connect new comment to campground
    //redirect campground show page
 });
+
+// ====================
+// AUTH ROUTES
+// ====================
+
+// Show register form
+app.get("/register", function(req, res){
+    res.render("register");
+});
+// Handle sign-up logic
+app.post("/register", function(req, res){
+    var newUser = new User({username: req.body.username});
+    User.register(newUser, req.body.password, function(err, comment){
+           if(err){
+               console.log(err);
+                res.render("register");
+           }
+           passport.authenticate("local")(req, res, function(){
+               res.redirect("/campgrounds");
+           });
+        });
+});
+
 
 app.listen(process.env.PORT, process.env.IP, function(){
    console.log("Server is listening..");
